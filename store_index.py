@@ -10,17 +10,9 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 load_dotenv()
 
 # Safely load the API key
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
+PINECONE_API_KEY = os.environ.get('PINECONE_API_KEY')
+os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
 
-# Check if it was loaded
-if not PINECONE_API_KEY:
-    raise ValueError("❌ ERROR: PINECONE_API_KEY is missing. Please check your .env file.")
-
-# You do NOT need to set os.environ again — it's already available after load_dotenv()
-
-load_dotenv
-
-PINECONE_API_KEY=os.environ.get('PINECONE_API_KEY')
 
 extracted_data=load_pdf_file(data='Data/')
 text_chunks=text_split(extracted_data)
